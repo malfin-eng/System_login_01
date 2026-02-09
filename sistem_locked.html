@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>System Locked</title>
+    <style>
+        /* CSS untuk styling halaman */
+        body {
+            background-color: #0d0d0d;
+            color: #00ffcc;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3em;
+            letter-spacing: 0.2em;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+        .countdown {
+            color: red;
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            width: 250px;
+            margin-top: 15px;
+            background-color: #222;
+            color: #00ffcc;
+            text-align: center;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            background-color: #00ffcc;
+            color: #0d0d0d;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #33ffd9;
+        }
+        .progress-bar {
+            width: 300px;
+            height: 10px;
+            border-radius: 5px;
+            background-color: #222;
+            margin-top: 15px;
+            position: relative;
+        }
+        .progress {
+            height: 100%;
+            width: 100%;
+            background-color: red;
+            border-radius: 5px;
+            animation: loading 5s linear forwards;
+        }
+        @keyframes loading {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <h1>SYSTEM LOCKED</h1>
+    <p>Semua file Anda telah DIENKRIPSI!</p>
+    <p>Waktu tersisa: <span id="timer" class="countdown">00:30</span></p>
+
+    <div class="progress-bar">
+        <div class="progress"></div>
+    </div>
+
+    <p>Masukkan kode unlock untuk menghentikan penghapusan otomatis:</p>
+    <input type="text" id="unlockCode" placeholder="Kode unlock" />
+    <button onclick="checkCode()">UNLOCK SYSTEM</button>
+
+    <script>
+        // Waktu countdown (dalam detik)
+        let timeLeft = 30;
+        const timerElement = document.getElementById('timer');
+
+        // Timer sederhana untuk hitung mundur
+        const countdown = setInterval(() => {
+            if(timeLeft <= 0) {
+                clearInterval(countdown);
+                alert('File Anda telah terhapus! (ini hanya prank)');
+                // Bisa tambahkan redirect ke halaman lain misal
+            } else {
+                timeLeft--;
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+                timerElement.textContent = `${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+            }
+        }, 1000);
+
+        // Fungsi cek kode unlock
+        function checkCode() {
+            const input = document.getElementById('unlockCode').value;
+            const correctCode = "12345"; // ganti kode sesuai keinginan
+
+            if(input === correctCode) {
+                clearInterval(countdown);
+                alert('Sistem berhasil dibuka!');
+                // Bisa arahkan ke halaman lain atau sembunyikan tampilan prank
+                document.body.innerHTML = '<h1>SYSTEM UNLOCKED</h1><p>Semua file aman.</p>';
+            } else {
+                alert('Kode salah, coba lagi!');
+            }
+        }
+    </script>
+</body>
+</html>
